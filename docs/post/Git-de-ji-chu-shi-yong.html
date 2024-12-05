@@ -42,7 +42,13 @@ commitID 可以使用 `git-log` 或 `git log`指令查看
 命令： `git remote add <远端名称> <仓库路径SSH>`
 远端名称，默认是origin，取决于远端服务器设置
 仓库路径，从远端服务器获取此SSH
-。">
+### 推送到远程仓库
+命令：`git push [-f] [–set-upstream] [远端名称 [本地分支名][:远端分支名] ]`
+如果远程分支名和本地分支名称相同，则可以只写本地分支
+​本来是：`git push origin master ：master` 表示将本地仓库的master分支提交到远程仓库的master分支
+`git push origin master` 这里表示将本地仓库当前master分支的内容推到远程仓库上面去
+-f 表示强制覆盖
+–set-upstream 推送到远端的同时并且建立起和远端分支的关联关系。">
 <meta property="og:title" content="Git的基础使用">
 <meta property="og:description" content="### 添加工作区到暂存区
 作用：添加工作区一个或多个文件的修改到暂存区
@@ -76,7 +82,13 @@ commitID 可以使用 `git-log` 或 `git log`指令查看
 命令： `git remote add <远端名称> <仓库路径SSH>`
 远端名称，默认是origin，取决于远端服务器设置
 仓库路径，从远端服务器获取此SSH
-。">
+### 推送到远程仓库
+命令：`git push [-f] [–set-upstream] [远端名称 [本地分支名][:远端分支名] ]`
+如果远程分支名和本地分支名称相同，则可以只写本地分支
+​本来是：`git push origin master ：master` 表示将本地仓库的master分支提交到远程仓库的master分支
+`git push origin master` 这里表示将本地仓库当前master分支的内容推到远程仓库上面去
+-f 表示强制覆盖
+–set-upstream 推送到远端的同时并且建立起和远端分支的关联关系。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://y22879451164.github.io/post/Git-de-ji-chu-shi-yong.html">
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/117916814?s=400&u=58268283f36239a32aca522406e8a2a2415483a4&v=4">
@@ -168,7 +180,16 @@ commitID 可以使用 <code class="notranslate">git-log</code> 或 <code class="
 <h3>操作远程仓库</h3>
 <p>命令： <code class="notranslate">git remote add &lt;远端名称&gt; &lt;仓库路径SSH&gt;</code><br>
 远端名称，默认是origin，取决于远端服务器设置<br>
-仓库路径，从远端服务器获取此SSH</p></div>
+仓库路径，从远端服务器获取此SSH</p>
+<h3>推送到远程仓库</h3>
+<p>命令：<code class="notranslate">git push [-f] [–set-upstream] [远端名称 [本地分支名][:远端分支名] ]</code><br>
+如果远程分支名和本地分支名称相同，则可以只写本地分支<br>
+​本来是：<code class="notranslate">git push origin master ：master</code> 表示将本地仓库的master分支提交到远程仓库的master分支<br>
+<code class="notranslate">git push origin master</code> 这里表示将本地仓库当前master分支的内容推到远程仓库上面去<br>
+-f 表示强制覆盖<br>
+–set-upstream 推送到远端的同时并且建立起和远端分支的关联关系。<br>
+<code class="notranslate">git push --set-upstream origin master</code><br>
+如果当前分支已经和远端分支关联，则可以省略分支名和远端名。</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
