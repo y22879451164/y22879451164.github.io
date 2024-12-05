@@ -1,3 +1,35 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Person Blog</title><link>https://y22879451164.github.io</link><description>一个简单的个人博客</description><copyright>Person Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/117916814?s=400&amp;u=58268283f36239a32aca522406e8a2a2415483a4&amp;v=4</url><title>avatar</title><link>https://y22879451164.github.io</link></image><lastBuildDate>Thu, 05 Dec 2024 09:18:35 +0000</lastBuildDate><managingEditor>Person Blog</managingEditor><ttl>60</ttl><webMaster>Person Blog</webMaster><item><title>一个简单的测试</title><link>https://y22879451164.github.io/post/yi-ge-jian-dan-de-ce-shi.html</link><description># 原神&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Person Blog</title><link>https://y22879451164.github.io</link><description>一个简单的个人博客</description><copyright>Person Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/117916814?s=400&amp;u=58268283f36239a32aca522406e8a2a2415483a4&amp;v=4</url><title>avatar</title><link>https://y22879451164.github.io</link></image><lastBuildDate>Thu, 05 Dec 2024 13:46:54 +0000</lastBuildDate><managingEditor>Person Blog</managingEditor><ttl>60</ttl><webMaster>Person Blog</webMaster><item><title>Git的基础使用</title><link>https://y22879451164.github.io/post/Git-de-ji-chu-shi-yong.html</link><description>### 添加工作区到暂存区&#13;
+作用：添加工作区一个或多个文件的修改到暂存区&#13;
+命令形式：git add 单个文件名|通配符&#13;
+将所有修改加入暂存区：`git add .`&#13;
+### 提交暂存区到本地仓库&#13;
+作用：提交暂存区汇总所有内容到本地仓库的当前分支&#13;
+命令形式：`git commit -m ‘注释内容’`&#13;
+### 版本回退&#13;
+作用：版本切换&#13;
+命令形式：`git reset --hard commitID`&#13;
+commitID 可以使用 `git-log` 或 `git log`指令查看&#13;
+查看已经删除的记录：&#13;
+`git reflog`&#13;
+所以&#13;
+`git reset --hard commitID`既可以做版本回退，也可以做版本还原&#13;
+### 创建本地分支&#13;
+命令：`git branch 分支名`&#13;
+创建的新分支会建立在当前分支的版本之上，所以新建的分支会有当前分支的内容&#13;
+### 切换分支&#13;
+命令：`git checkout 分支名`&#13;
+我们还可以直接切换到一个不存在的分支（创建并切换）&#13;
+命令：`git checkout -b 分支名`&#13;
+### 合并分支&#13;
+命令：`git merge 分支名称`&#13;
+### 删除分支&#13;
+不能删除当前分支，只能删除其他分支&#13;
+`git branch -d b1` 删除分支时，需要做各种检查&#13;
+`git branch -D b1` 不做任何检查，强制删除&#13;
+### 操作远程仓库&#13;
+命令： `git remote add &lt;远端名称&gt; &lt;仓库路径SSH&gt;`&#13;
+远端名称，默认是origin，取决于远端服务器设置&#13;
+仓库路径，从远端服务器获取此SSH&#13;
+。</description><guid isPermaLink="true">https://y22879451164.github.io/post/Git-de-ji-chu-shi-yong.html</guid><pubDate>Thu, 05 Dec 2024 13:46:26 +0000</pubDate></item><item><title>一个简单的测试</title><link>https://y22879451164.github.io/post/yi-ge-jian-dan-de-ce-shi.html</link><description># 原神&#13;
 ## 邓翔爱玩原神。</description><guid isPermaLink="true">https://y22879451164.github.io/post/yi-ge-jian-dan-de-ce-shi.html</guid><pubDate>Thu, 05 Dec 2024 08:02:34 +0000</pubDate></item></channel></rss>
