@@ -1,5 +1,49 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Person Blog</title><link>https://y22879451164.github.io</link><description>一个简单的个人博客</description><copyright>Person Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/117916814?s=400&amp;u=58268283f36239a32aca522406e8a2a2415483a4&amp;v=4</url><title>avatar</title><link>https://y22879451164.github.io</link></image><lastBuildDate>Mon, 20 Jan 2025 04:24:02 +0000</lastBuildDate><managingEditor>Person Blog</managingEditor><ttl>60</ttl><webMaster>Person Blog</webMaster><item><title>Sentinel使用</title><link>https://y22879451164.github.io/post/Sentinel-shi-yong.html</link><description>## 管理控制台
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Person Blog</title><link>https://y22879451164.github.io</link><description>一个简单的个人博客</description><copyright>Person Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/117916814?s=400&amp;u=58268283f36239a32aca522406e8a2a2415483a4&amp;v=4</url><title>avatar</title><link>https://y22879451164.github.io</link></image><lastBuildDate>Fri, 14 Mar 2025 12:29:09 +0000</lastBuildDate><managingEditor>Person Blog</managingEditor><ttl>60</ttl><webMaster>Person Blog</webMaster><item><title>java格式化时间配置</title><link>https://y22879451164.github.io/post/java-ge-shi-hua-shi-jian-pei-zhi.html</link><description>``` java
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+@Configuration
+public class LocalDateTimeConfig {
+
+    /*
+     * 序列化内容
+     *   LocalDateTime -&gt; String
+     * 服务端返回给客户端内容
+     * */
+    @Bean
+    public LocalDateTimeSerializer localDateTimeSerializer() {
+        return new LocalDateTimeSerializer(DateTimeFormatter.ofPattern('yyyy-MM-dd HH:mm:ss'));
+    }
+
+    /*
+     * 反序列化内容
+     *   String -&gt; LocalDateTime
+     * 客户端传入服务端数据
+     * */
+    @Bean
+    public LocalDateTimeDeserializer localDateTimeDeserializer() {
+        return new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern('yyyy-MM-dd HH:mm:ss'));
+    }
+
+
+    // 配置
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
+        return builder -&gt; {
+            builder.serializerByType(LocalDateTime.class, localDateTimeSerializer());
+            builder.deserializerByType(LocalDateTime.class, localDateTimeDeserializer());
+        };
+    }
+
+}
+```。</description><guid isPermaLink="true">https://y22879451164.github.io/post/java-ge-shi-hua-shi-jian-pei-zhi.html</guid><pubDate>Fri, 14 Mar 2025 12:28:27 +0000</pubDate></item><item><title>Sentinel使用</title><link>https://y22879451164.github.io/post/Sentinel-shi-yong.html</link><description>## 管理控制台
 首先下载控制台的jar包
 [https://github.com/alibaba/Sentinel/releases](url)
 修改文件名为sentinel-dashboard.jar，然后使用以下命令启动：
