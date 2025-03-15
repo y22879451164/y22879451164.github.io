@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Person Blog</title><link>https://y22879451164.github.io</link><description>一个简单的个人博客</description><copyright>Person Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/117916814?s=400&amp;u=58268283f36239a32aca522406e8a2a2415483a4&amp;v=4</url><title>avatar</title><link>https://y22879451164.github.io</link></image><lastBuildDate>Fri, 14 Mar 2025 12:54:07 +0000</lastBuildDate><managingEditor>Person Blog</managingEditor><ttl>60</ttl><webMaster>Person Blog</webMaster><item><title>SpringBoot接口开发的常用注解</title><link>https://y22879451164.github.io/post/SpringBoot-jie-kou-kai-fa-de-chang-yong-zhu-jie.html</link><description>1. `@Controller`标记此类是一个控制器，可以返回视图解析器指定的html页面，通过`@ResponseBody`可以将结果返回json、xml数据。</description><guid isPermaLink="true">https://y22879451164.github.io/post/SpringBoot-jie-kou-kai-fa-de-chang-yong-zhu-jie.html</guid><pubDate>Fri, 14 Mar 2025 12:53:44 +0000</pubDate></item><item><title>java格式化时间配置</title><link>https://y22879451164.github.io/post/java-ge-shi-hua-shi-jian-pei-zhi.html</link><description>``` java
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Person Blog</title><link>https://y22879451164.github.io</link><description>一个简单的个人博客</description><copyright>Person Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/117916814?s=400&amp;u=58268283f36239a32aca522406e8a2a2415483a4&amp;v=4</url><title>avatar</title><link>https://y22879451164.github.io</link></image><lastBuildDate>Sat, 15 Mar 2025 06:52:13 +0000</lastBuildDate><managingEditor>Person Blog</managingEditor><ttl>60</ttl><webMaster>Person Blog</webMaster><item><title>SpringBoot接口开发的常用注解</title><link>https://y22879451164.github.io/post/SpringBoot-jie-kou-kai-fa-de-chang-yong-zhu-jie.html</link><description>1. `@Controller`标记此类是一个控制器，可以返回视图解析器指定的html页面，通过`@ResponseBody`可以将结果返回json、xml数据。</description><guid isPermaLink="true">https://y22879451164.github.io/post/SpringBoot-jie-kou-kai-fa-de-chang-yong-zhu-jie.html</guid><pubDate>Fri, 14 Mar 2025 12:53:44 +0000</pubDate></item><item><title>java格式化时间配置</title><link>https://y22879451164.github.io/post/java-ge-shi-hua-shi-jian-pei-zhi.html</link><description>### java格式化时间配置：
+
+``` java
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
@@ -42,6 +44,37 @@ public class LocalDateTimeConfig {
         };
     }
 
+}
+```
+### 实现跨域请求配置
+``` java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+
+@Configuration
+public class GlobalCorsConfig {
+
+    @Bean
+    public CorsFilter corsFilter() {
+
+        CorsConfiguration config = new CorsConfiguration();
+        //允许白名单域名进行跨域调用
+        config.addAllowedOrigin('*');
+        //允许跨越发送cookie
+        config.setAllowCredentials(true);
+        //放行全部原始头信息
+        config.addAllowedHeader('*');
+        //允许所有请求方法跨域调用
+        config.addAllowedMethod('*');
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration('/**', config);
+        return new CorsFilter(source);
+
+    }
 }
 ```。</description><guid isPermaLink="true">https://y22879451164.github.io/post/java-ge-shi-hua-shi-jian-pei-zhi.html</guid><pubDate>Fri, 14 Mar 2025 12:28:27 +0000</pubDate></item><item><title>Sentinel使用</title><link>https://y22879451164.github.io/post/Sentinel-shi-yong.html</link><description>## 管理控制台
 首先下载控制台的jar包

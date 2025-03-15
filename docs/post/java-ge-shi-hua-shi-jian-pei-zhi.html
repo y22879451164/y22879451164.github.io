@@ -10,7 +10,9 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="``` java
+<meta name="description" content="### java格式化时间配置：
+
+``` java
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
@@ -54,9 +56,42 @@ public class LocalDateTimeConfig {
     }
 
 }
+```
+### 实现跨域请求配置
+``` java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+
+@Configuration
+public class GlobalCorsConfig {
+
+    @Bean
+    public CorsFilter corsFilter() {
+
+        CorsConfiguration config = new CorsConfiguration();
+        //允许白名单域名进行跨域调用
+        config.addAllowedOrigin('*');
+        //允许跨越发送cookie
+        config.setAllowCredentials(true);
+        //放行全部原始头信息
+        config.addAllowedHeader('*');
+        //允许所有请求方法跨域调用
+        config.addAllowedMethod('*');
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration('/**', config);
+        return new CorsFilter(source);
+
+    }
+}
 ```。">
 <meta property="og:title" content="java格式化时间配置">
-<meta property="og:description" content="``` java
+<meta property="og:description" content="### java格式化时间配置：
+
+``` java
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
@@ -99,6 +134,37 @@ public class LocalDateTimeConfig {
         };
     }
 
+}
+```
+### 实现跨域请求配置
+``` java
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+
+@Configuration
+public class GlobalCorsConfig {
+
+    @Bean
+    public CorsFilter corsFilter() {
+
+        CorsConfiguration config = new CorsConfiguration();
+        //允许白名单域名进行跨域调用
+        config.addAllowedOrigin('*');
+        //允许跨越发送cookie
+        config.setAllowCredentials(true);
+        //放行全部原始头信息
+        config.addAllowedHeader('*');
+        //允许所有请求方法跨域调用
+        config.addAllowedMethod('*');
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration('/**', config);
+        return new CorsFilter(source);
+
+    }
 }
 ```。">
 <meta property="og:type" content="article">
@@ -171,7 +237,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">com</span>.<span class="pl-s1">fasterxml</span>.<span class="pl-s1">jackson</span>.<span class="pl-s1">datatype</span>.<span class="pl-s1">jsr310</span>.<span class="pl-s1">deser</span>.<span class="pl-s1">LocalDateTimeDeserializer</span>;
+<div class="markdown-body" id="postBody"><h3>java格式化时间配置：</h3>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">com</span>.<span class="pl-s1">fasterxml</span>.<span class="pl-s1">jackson</span>.<span class="pl-s1">datatype</span>.<span class="pl-s1">jsr310</span>.<span class="pl-s1">deser</span>.<span class="pl-s1">LocalDateTimeDeserializer</span>;
 <span class="pl-k">import</span> <span class="pl-s1">com</span>.<span class="pl-s1">fasterxml</span>.<span class="pl-s1">jackson</span>.<span class="pl-s1">datatype</span>.<span class="pl-s1">jsr310</span>.<span class="pl-s1">ser</span>.<span class="pl-s1">LocalDateTimeSerializer</span>;
 <span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">boot</span>.<span class="pl-s1">autoconfigure</span>.<span class="pl-s1">jackson</span>.<span class="pl-s1">Jackson2ObjectMapperBuilderCustomizer</span>;
 <span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">context</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Bean</span>;
@@ -213,6 +280,35 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
         };
     }
 
+}</pre></div>
+<h3>实现跨域请求配置</h3>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">context</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Bean</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">context</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Configuration</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">cors</span>.<span class="pl-s1">CorsConfiguration</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">cors</span>.<span class="pl-s1">UrlBasedCorsConfigurationSource</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">web</span>.<span class="pl-s1">filter</span>.<span class="pl-s1">CorsFilter</span>;
+
+
+<span class="pl-c1">@</span><span class="pl-c1">Configuration</span>
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">GlobalCorsConfig</span> {
+
+    <span class="pl-c1">@</span><span class="pl-c1">Bean</span>
+    <span class="pl-k">public</span> <span class="pl-smi">CorsFilter</span> <span class="pl-en">corsFilter</span>() {
+
+        <span class="pl-smi">CorsConfiguration</span> <span class="pl-s1">config</span> = <span class="pl-k">new</span> <span class="pl-smi">CorsConfiguration</span>();
+        <span class="pl-c">//允许白名单域名进行跨域调用</span>
+        <span class="pl-s1">config</span>.<span class="pl-en">addAllowedOrigin</span>(<span class="pl-s">"*"</span>);
+        <span class="pl-c">//允许跨越发送cookie</span>
+        <span class="pl-s1">config</span>.<span class="pl-en">setAllowCredentials</span>(<span class="pl-c1">true</span>);
+        <span class="pl-c">//放行全部原始头信息</span>
+        <span class="pl-s1">config</span>.<span class="pl-en">addAllowedHeader</span>(<span class="pl-s">"*"</span>);
+        <span class="pl-c">//允许所有请求方法跨域调用</span>
+        <span class="pl-s1">config</span>.<span class="pl-en">addAllowedMethod</span>(<span class="pl-s">"*"</span>);
+        <span class="pl-smi">UrlBasedCorsConfigurationSource</span> <span class="pl-s1">source</span> = <span class="pl-k">new</span> <span class="pl-smi">UrlBasedCorsConfigurationSource</span>();
+        <span class="pl-s1">source</span>.<span class="pl-en">registerCorsConfiguration</span>(<span class="pl-s">"/**"</span>, <span class="pl-s1">config</span>);
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">CorsFilter</span>(<span class="pl-s1">source</span>);
+
+    }
 }</pre></div></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
