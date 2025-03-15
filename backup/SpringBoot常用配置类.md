@@ -1,4 +1,4 @@
-### java格式化时间配置：
+### java格式化时间配置
 
 ``` java
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -76,7 +76,7 @@ public class GlobalCorsConfig {
     }
 }
 ```
-mybatis-plus分页拦截器：
+### mybatis-plus分页拦截器
 ``` java
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
