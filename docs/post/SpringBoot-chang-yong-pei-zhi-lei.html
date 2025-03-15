@@ -87,6 +87,32 @@ public class GlobalCorsConfig {
 
     }
 }
+```
+mybatis-plus分页拦截器：
+``` java
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+
+@Configuration
+@MapperScan('com.example.test.mapper')
+public class MybatisPlusConfig {
+	/**
+	 * 新的分页插件
+	 * 需要设置 MybatisConfiguration#useDeprecatedExecutor = false
+	 * 避免缓存出现问题(该属性会在旧插件移除后一同移除)
+	 */
+	@Bean
+	public MybatisPlusInterceptor mybatisPlusInterceptor() {
+		MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+		interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+		return interceptor;
+	}
+}
 ```。">
 <meta property="og:title" content="SpringBoot常用配置类">
 <meta property="og:description" content="### java格式化时间配置：
@@ -165,6 +191,32 @@ public class GlobalCorsConfig {
         return new CorsFilter(source);
 
     }
+}
+```
+mybatis-plus分页拦截器：
+``` java
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+
+@Configuration
+@MapperScan('com.example.test.mapper')
+public class MybatisPlusConfig {
+	/**
+	 * 新的分页插件
+	 * 需要设置 MybatisConfiguration#useDeprecatedExecutor = false
+	 * 避免缓存出现问题(该属性会在旧插件移除后一同移除)
+	 */
+	@Bean
+	public MybatisPlusInterceptor mybatisPlusInterceptor() {
+		MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+		interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+		return interceptor;
+	}
 }
 ```。">
 <meta property="og:type" content="article">
@@ -309,6 +361,30 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
         <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-smi">CorsFilter</span>(<span class="pl-s1">source</span>);
 
     }
+}</pre></div>
+<p>mybatis-plus分页拦截器：</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-k">import</span> <span class="pl-s1">com</span>.<span class="pl-s1">baomidou</span>.<span class="pl-s1">mybatisplus</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">DbType</span>;
+<span class="pl-k">import</span> <span class="pl-s1">com</span>.<span class="pl-s1">baomidou</span>.<span class="pl-s1">mybatisplus</span>.<span class="pl-s1">extension</span>.<span class="pl-s1">plugins</span>.<span class="pl-s1">MybatisPlusInterceptor</span>;
+<span class="pl-k">import</span> <span class="pl-s1">com</span>.<span class="pl-s1">baomidou</span>.<span class="pl-s1">mybatisplus</span>.<span class="pl-s1">extension</span>.<span class="pl-s1">plugins</span>.<span class="pl-s1">inner</span>.<span class="pl-s1">PaginationInnerInterceptor</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">mybatis</span>.<span class="pl-s1">spring</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">MapperScan</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">context</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Bean</span>;
+<span class="pl-k">import</span> <span class="pl-s1">org</span>.<span class="pl-s1">springframework</span>.<span class="pl-s1">context</span>.<span class="pl-s1">annotation</span>.<span class="pl-s1">Configuration</span>;
+
+
+<span class="pl-c1">@</span><span class="pl-c1">Configuration</span>
+<span class="pl-c1">@</span><span class="pl-c1">MapperScan</span>(<span class="pl-s">"com.example.test.mapper"</span>)
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-smi">MybatisPlusConfig</span> {
+	<span class="pl-c">/**</span>
+<span class="pl-c">	 * 新的分页插件</span>
+<span class="pl-c">	 * 需要设置 MybatisConfiguration#useDeprecatedExecutor = false</span>
+<span class="pl-c">	 * 避免缓存出现问题(该属性会在旧插件移除后一同移除)</span>
+<span class="pl-c">	 */</span>
+	<span class="pl-c1">@</span><span class="pl-c1">Bean</span>
+	<span class="pl-k">public</span> <span class="pl-smi">MybatisPlusInterceptor</span> <span class="pl-en">mybatisPlusInterceptor</span>() {
+		<span class="pl-smi">MybatisPlusInterceptor</span> <span class="pl-s1">interceptor</span> = <span class="pl-k">new</span> <span class="pl-smi">MybatisPlusInterceptor</span>();
+		<span class="pl-s1">interceptor</span>.<span class="pl-en">addInnerInterceptor</span>(<span class="pl-k">new</span> <span class="pl-smi">PaginationInnerInterceptor</span>(<span class="pl-smi">DbType</span>.<span class="pl-c1">MYSQL</span>));
+		<span class="pl-k">return</span> <span class="pl-s1">interceptor</span>;
+	}
 }</pre></div></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
