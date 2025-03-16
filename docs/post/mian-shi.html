@@ -81,7 +81,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 （1）处理自定义异常程序<br>
 在编写代码时根据校验结果主动抛出自定义异常类对象，抛出异常时指定详细的异常信息，异常处理器捕获异常信息记录异常日志并响应给用户。<br>
 （2）处理未知异常<br>
-接口执行过程中的一些运行时异常也会由异常处理器统一捕获，记录异常日志，统一响应给用户500错误。在异常处理器中还可以针对某个异常类型进行单独处理。</p></div>
+接口执行过程中的一些运行时异常也会由异常处理器统一捕获，记录异常日志，统一响应给用户500错误。在异常处理器中还可以针对某个异常类型进行单独处理。</p>
+<h3>请求参数的合法性校验如何做?</h3>
+<p>使用基于JSR303的校验框架实现，SpringBoot提供了ISR-303的支持，它就是spring-boot-starter-validation，它包括了很多校验规则，只需要在模型类中通过注解指定校验规则，在controller方法上开启校验。</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
