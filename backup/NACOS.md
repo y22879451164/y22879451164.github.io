@@ -1,0 +1,24 @@
+在父工程添加依赖：
+```xml
+<dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+    <version>${spring-cloud-alibaba.version}</version>
+    <type>pom</type>
+    <scope>import</scope>
+</dependency>
+```
+在需要进行服务注册的模块下添加依赖：
+```xml
+<dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+</dependency>
+```
+如果需要进行配置管理，还需要添加如下依赖：
+```xml
+<dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+</dependency>
+```
