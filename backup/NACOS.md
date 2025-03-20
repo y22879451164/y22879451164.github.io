@@ -31,7 +31,7 @@ dev：第二部分，它是环境名，通过spring.profiles.active指定，
 Yaml: 第三部分，它是配置文件的后缀
 我们启动项目中传入spring.profiles.active的参数决定引用哪个环境的配置文件，例如：传入spring.profiles.active=dev表示使用dev环境的配置文件即content-service-dev.yaml。
 ### 接下来在本地配置bootstrap.yaml文件
-```xml
+```yaml
 #微服务配置
 spring:
   application:
