@@ -57,3 +57,7 @@ spring:
   profiles:
     active: dev
 ```
+### 在客户端微服务启动类中添加注解
+``` java
+@EnableDiscoveryClient
+```
