@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    <script src='https://blog.meekdai.com/Gmeek/plugins/GmeekVercount.js'></script>
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/117916814?s=400&u=58268283f36239a32aca522406e8a2a2415483a4&v=4"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="### Spring框架中的单例bean是线程安全的吗？
+不是线程安全的。">
+<meta property="og:title" content="SSM框架篇">
+<meta property="og:description" content="### Spring框架中的单例bean是线程安全的吗？
+不是线程安全的。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://y22879451164.github.io/post/SSM-kuang-jia-pian.html">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/117916814?s=400&u=58268283f36239a32aca522406e8a2a2415483a4&v=4">
+<title>SSM框架篇</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">SSM框架篇</h1>
+<div class="title-right">
+    <a href="https://y22879451164.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/y22879451164/y22879451164.github.io/issues/11" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h3>Spring框架中的单例bean是线程安全的吗？</h3>
+<p>不是线程安全的。当多用户同时请求一个服务时，容器会给每个请求分配一个线程，这些线程会并发执行业务逻辑。如果处理逻辑中包含对单例状态的修改，比如修改单例的成员属性，就必须考虑线程同步问题。Spring框架本身并不对单例bean进行线程安全封装，线程安全和并发问题需要开发者自行处理。<br>
+通常在项目中使用的Spring bean是不可变状态（如Service类和DAO类），因此在某种程度上可以说Spring的单例bean是线程安全的。如果bean有多种状态（如ViewModel对象），就需要自行保证线程安全。最简单的解决办法是将单例bean的作用域由“singleton”变更为“prototype”。</p>
+<h3>什么是AOP？</h3>
+<p>AOP，即面向切面编程，在Spring中用于将那些与业务无关但对多个对象产生影响的公共行为和逻辑抽取出来，实现公共模块复用，降低耦合。常见的应用场景包括公共日志保存和事务处理。</p>
+<h3>你们项目中有没有使用到AOP？</h3>
+<p>使用AOP来记录系统操作日志。主要思路是使用AOP的环绕通知和切点表达式，找到需要记录日志的方法，然后通过环绕通知的参数获取请求方法的参数，例如类信息、方法信息、注解、请求方式等，并将这些参数保存到数据库。</p>
+<h3>Spring中的事务是如何实现的？</h3>
+<p>Spring实现事务的本质是利用AOP完成的。它对方法前后进行拦截，在执行方法前开启事务，在执行完目标方法后根据执行情况提交或回滚事务。</p>
+<h3>Spring中事务失效的场景有哪些？</h3>
+<ol>
+<li>如果方法内部捕获并处理了异常，没有将异常抛出，会导致事务失效。因此，处理异常后应该确保异常能够被抛出。</li>
+<li>如果方法抛出检查型异常（checked exception），并且没有在<code class="notranslate">@Transactional</code>注解上配置rollbackFor属性为Exception，那么异常发生时事务可能不会回滚。</li>
+<li>如果事务注解的方法不是公开（public）修饰的，也可能导致事务失效。</li>
+</ol>
+<h3>Spring的bean的生命周期？</h3>
+<ol>
+<li>通过BeanDefinition获取bean的定义信息。</li>
+<li>调用构造函数实例化bean。</li>
+<li>进行bean的依赖注入，例如通过setter方法或<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/Autowired/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/Autowired">@Autowired</a>注解。</li>
+<li>处理实现了Aware接口的bean。</li>
+<li>执行BeanPostProcessor的前置处理器。</li>
+<li>调用初始化方法，如实现了InitializingBean接口或自定义的init-method。</li>
+<li>执行BeanPostProcessor的后置处理器，可能在这里产生代理对象。</li>
+<li>最后是销毁bean。</li>
+</ol>
+<h3>Spring中的循环引用？</h3>
+<p>循环依赖发生在两个或两个以上的bean互相持有对方，形成闭环。Spring框架允许循环依赖存在，并通过三级缓存解决大部分循环依赖问题：</p>
+<ol>
+<li>一级缓存(Singleton objects)：单例池，缓存已完成初始化的bean对象。</li>
+<li>二级缓存(Early Singleton  Objects)：缓存尚未完成生命周期的早期bean对象。</li>
+<li>三级缓存(SIngleton Factories)：缓存ObjectFactory，用于创建bean对象。</li>
+</ol>
+<p>解决循环依赖的流程如下：</p>
+<ol>
+<li>实例化A对象，并创建ObjectFactory存入三级缓存。</li>
+<li>A在初始化时需要B对象，开始B的创建逻辑。</li>
+<li>B实例化完成，也创建ObjectFactory存入三级缓存。</li>
+<li>B需要注入A，通过三级缓存获取ObjectFactory生成A对象，存入二级缓存。</li>
+<li>B通过二级缓存获得A对象后，B创建成功，存入一级缓存。</li>
+<li>A对象初始化时，由于B已创建完成，可以直接注入B，A创建成功存入一级缓存。</li>
+<li>清除二级缓存中的临时对象A。</li>
+</ol>
+<h3>构造方法出现了循环依赖怎么解决？</h3>
+<p>由于构造函数是bean生命周期中最先执行的，Spring框架无法解决构造方法的循环依赖问题。可以使用<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/lazy/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/lazy">@lazy</a>懒加载注解，延迟bean的创建直到实际需要时。</p>
+<h3>SpringMVC的执行流程？</h3>
+<p>SpringMVC的执行流程包括以下步骤：</p>
+<ol>
+<li>用户发送请求到前端控制器DispatcherServlet。</li>
+<li>DispatcherServlet调用HandlerMapping找到具体处理器。</li>
+<li>HandlerMapping返回处理器对象及拦截器（如果有）给DispatcherServlet。</li>
+<li>DispatcherServlet调用HandlerAdapter。</li>
+<li>HandlerAdapter适配并调用具体处理器（Controller）。</li>
+<li>Controller执行并返回ModelAndView对象。</li>
+<li>HandlerAdapter将ModelAndView返回给DispatcherServlet。</li>
+<li>DispatcherServlet传给ViewResolver进行视图解析。</li>
+<li>ViewResolver返回具体视图给DispatcherServlet。</li>
+<li>DispatcherServlet渲染视图并响应用户。</li>
+</ol>
+<h3>Springboot自动配置原理？</h3>
+<p>Spring Boot的自动配置原理基于<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/SpringBootApplication/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/SpringBootApplication">@SpringBootApplication</a>注解，它封装了@SpringBootConfiguration、@EnableAutoConfiguration和<a class="user-mention notranslate" data-hovercard-type="user" data-hovercard-url="/users/componentscan/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/componentscan">@componentscan</a>。@EnableAutoConfiguration是核心，它通过<a class="user-mention notranslate" data-hovercard-type="organization" data-hovercard-url="/orgs/import/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="https://github.com/import">@import</a>导入配置选择器，读取META-INF/spring.factories文件中的类名，根据条件注解决定是否将配置类中的Bean导入到Spring容器中。</p>
+<h3>Spring 的常见注解有哪些？</h3>
+<p>Spring的常见注解包括：</p>
+<ol>
+<li>声明Bean的注解：<code class="notranslate">@Component、@Service、@Repository、@Controller。</code></li>
+<li>依赖注入相关注解：<code class="notranslate">@Autowired、@Qualifier、@Resource。</code></li>
+<li>设置作用域的注解：<code class="notranslate">@Scope。</code></li>
+<li>配置相关注解：<code class="notranslate">@Configuration、@ComponentScan、@Bean。</code></li>
+<li>AOP相关注解：<code class="notranslate">@Aspect、@Before、@After、@Around、@Pointcut。</code></li>
+</ol>
+<h3>SpringMVC常见的注解有哪些？</h3>
+<p>SpringMVC的常见注解有：</p>
+<ul>
+<li><code class="notranslate">@RequestMapping</code>：映射请求路径。</li>
+<li><code class="notranslate">@RequestBody</code>：接收HTTP请求的JSON数据。</li>
+<li><code class="notranslate">@RequestParam</code>：指定请求参数名称。</li>
+<li><code class="notranslate">@PathVariable</code>：从请求路径中获取参数。</li>
+<li><code class="notranslate">@ResponseBody</code>：将Controller方法返回的对象转化为JSON。</li>
+<li><code class="notranslate">@RequestHeader</code>：获取请求头数据。</li>
+<li><code class="notranslate">@PostMapping、@GetMapping</code>等。</li>
+</ul>
+<h3>Springboot常见注解有哪些？</h3>
+<p>Spring Boot的常见注解包括：</p>
+<ul>
+<li><code class="notranslate">@SpringBootApplication</code>：由<code class="notranslate">@SpringBootConfiguration、@EnableAutoConfiguration</code>和<code class="notranslate">@ComponentScan</code>组成。</li>
+</ul></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://y22879451164.github.io">Person Blog</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("12/5/2024"!=""){
+    var startSite=new Date("12/5/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","y22879451164/y22879451164.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+
+
+</script>
+<script src='https://blog.meekdai.com/Gmeek/plugins/articletoc.js'></script>
+
+</html>
