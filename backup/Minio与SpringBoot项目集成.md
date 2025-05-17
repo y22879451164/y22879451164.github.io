@@ -1,4 +1,5 @@
->[!NOTE] 1. 添加 MinIO 客户端依赖
+>[!NOTE] 
+>### 1. 添加 MinIO 客户端依赖
 
 在您的 Spring Boot 项目的 pom.xml 文件中添加 MinIO 客户端依赖：
 ```  xml
@@ -16,7 +17,8 @@ minio:
   secret-key: YOUR_SECRET_KEY
   bucket-name: your-bucket-name
 ```
->[!NOTE]2. 创建 MinIO 配置类
+>[!NOTE]
+>### 2. 创建 MinIO 配置类
 
 创建一个配置类，用于初始化 MinIO 客户端。创建一个名为 MinioConfig 的类：
 ``` java
@@ -48,8 +50,8 @@ public class MinioConfig {
     }
 }
 ```
->[!NOTE] 3.现在可以开始使用了，下面是一个上传图片的示例：
-
+>[!NOTE] 
+>### 3.现在可以开始使用了，下面是一个上传图片的示例：
 ``` java
 import org.joda.time.DateTime;
 @Service
