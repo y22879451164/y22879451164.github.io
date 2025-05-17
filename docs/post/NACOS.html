@@ -10,15 +10,22 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="### 在父工程添加依赖：
+<meta name="description" content=" ### 在父工程添加依赖：
 ```xml
-<dependency>
-    <groupId>com.alibaba.cloud</groupId>
-    <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-    <version>${spring-cloud-alibaba.version}</version>
-    <type>pom</type>
-    <scope>import</scope>
-</dependency>
+<properties>
+    <alibaba.version>2.2.2.RELEASE</alibaba.version>
+</properties>
+<dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+</dependencyManagement>
 ```
 ### 在需要进行服务注册的模块下添加依赖：
 ```xml
@@ -37,15 +44,22 @@
 ### nacos通过namespace、group、dataid这三部分去定位一个具体的配置文件:
 1、通过namespace、group找到具体的环境和具体的项目。">
 <meta property="og:title" content="NACOS">
-<meta property="og:description" content="### 在父工程添加依赖：
+<meta property="og:description" content=" ### 在父工程添加依赖：
 ```xml
-<dependency>
-    <groupId>com.alibaba.cloud</groupId>
-    <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-    <version>${spring-cloud-alibaba.version}</version>
-    <type>pom</type>
-    <scope>import</scope>
-</dependency>
+<properties>
+    <alibaba.version>2.2.2.RELEASE</alibaba.version>
+</properties>
+<dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+</dependencyManagement>
 ```
 ### 在需要进行服务注册的模块下添加依赖：
 ```xml
@@ -134,13 +148,20 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
     <div id="content">
 <div class="markdown-body" id="postBody"><h3>在父工程添加依赖：</h3>
-<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">dependency</span>&gt;
-    &lt;<span class="pl-ent">groupId</span>&gt;com.alibaba.cloud&lt;/<span class="pl-ent">groupId</span>&gt;
-    &lt;<span class="pl-ent">artifactId</span>&gt;spring-cloud-alibaba-dependencies&lt;/<span class="pl-ent">artifactId</span>&gt;
-    &lt;<span class="pl-ent">version</span>&gt;${spring-cloud-alibaba.version}&lt;/<span class="pl-ent">version</span>&gt;
-    &lt;<span class="pl-ent">type</span>&gt;pom&lt;/<span class="pl-ent">type</span>&gt;
-    &lt;<span class="pl-ent">scope</span>&gt;import&lt;/<span class="pl-ent">scope</span>&gt;
-&lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
+<div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">properties</span>&gt;
+    &lt;<span class="pl-ent">alibaba</span>.version&gt;2.2.2.RELEASE&lt;/<span class="pl-ent">alibaba</span>.version&gt;
+&lt;/<span class="pl-ent">properties</span>&gt;
+&lt;<span class="pl-ent">dependencyManagement</span>&gt;
+        &lt;<span class="pl-ent">dependencies</span>&gt;
+            &lt;<span class="pl-ent">dependency</span>&gt;
+                &lt;<span class="pl-ent">groupId</span>&gt;com.alibaba.cloud&lt;/<span class="pl-ent">groupId</span>&gt;
+                &lt;<span class="pl-ent">artifactId</span>&gt;spring-cloud-alibaba-dependencies&lt;/<span class="pl-ent">artifactId</span>&gt;
+                &lt;<span class="pl-ent">version</span>&gt;${alibaba.version}&lt;/<span class="pl-ent">version</span>&gt;
+                &lt;<span class="pl-ent">type</span>&gt;pom&lt;/<span class="pl-ent">type</span>&gt;
+                &lt;<span class="pl-ent">scope</span>&gt;import&lt;/<span class="pl-ent">scope</span>&gt;
+            &lt;/<span class="pl-ent">dependency</span>&gt;
+        &lt;/<span class="pl-ent">dependencies</span>&gt;
+&lt;/<span class="pl-ent">dependencyManagement</span>&gt;</pre></div>
 <h3>在需要进行服务注册的模块下添加依赖：</h3>
 <div class="highlight highlight-text-xml"><pre class="notranslate">&lt;<span class="pl-ent">dependency</span>&gt;
     &lt;<span class="pl-ent">groupId</span>&gt;com.alibaba.cloud&lt;/<span class="pl-ent">groupId</span>&gt;

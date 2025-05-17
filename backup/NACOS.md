@@ -1,12 +1,19 @@
-### 在父工程添加依赖：
+ ### 在父工程添加依赖：
 ```xml
-<dependency>
-    <groupId>com.alibaba.cloud</groupId>
-    <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-    <version>${spring-cloud-alibaba.version}</version>
-    <type>pom</type>
-    <scope>import</scope>
-</dependency>
+<properties>
+    <alibaba.version>2.2.2.RELEASE</alibaba.version>
+</properties>
+<dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+</dependencyManagement>
 ```
 ### 在需要进行服务注册的模块下添加依赖：
 ```xml
