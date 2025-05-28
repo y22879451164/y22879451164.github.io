@@ -92,15 +92,6 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 (5)抛出的异常与rollbackFor指定的异常不匹配，默认rollbackFor指定的异常为RuntimeException<br>
 (6)数据库表不支持事务，比如MySQL的MyISAM<br>
 (7)Spring的传播行为导致事务失效，比如: PROPAGATION_NEVER、PROPAGATION_NOT_SUPPORTED</p>
-<ul>
-<li>PROPAGATION_REQUIRED --支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。</li>
-<li>PROPAGATION_SUPPORTS --支持当前事务，如果当前没有事务，就以非事务方式执行。</li>
-<li>PROPAGATION_MANDATORY --支持当前事务，如果当前没有事务，就抛出异常。</li>
-<li>PROPAGATION_REQUIRES_NEW --新建事务，如果当前存在事务，把当前事务挂起。</li>
-<li>PROPAGATION_NOT_SUPPORTED --以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。</li>
-<li>PROPAGATION_NEVER --以非事务方式执行，如果当前存在事务，则抛出异常。</li>
-<li>PROPAGATION_NESTED --如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则与PROPAGATION_REQUIRED类似的操作。</li>
-</ul>
 <h3>断点续传是怎么做的?|</h3>
 <p>我们是基于分块上传的模式实现断点续传的需求，当文件上传一部分断网后前边已经上传过的不再上传。<br>
 (1)前端对文件分块。<br>
