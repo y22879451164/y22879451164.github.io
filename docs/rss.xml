@@ -1,5 +1,40 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Person Blog</title><link>https://y22879451164.github.io</link><description>一个简单的个人博客</description><copyright>Person Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/117916814?s=400&amp;u=58268283f36239a32aca522406e8a2a2415483a4&amp;v=4</url><title>avatar</title><link>https://y22879451164.github.io</link></image><lastBuildDate>Sat, 17 May 2025 01:16:18 +0000</lastBuildDate><managingEditor>Person Blog</managingEditor><ttl>60</ttl><webMaster>Person Blog</webMaster><item><title>Minio与SpringBoot项目集成</title><link>https://y22879451164.github.io/post/Minio-yu-SpringBoot-xiang-mu-ji-cheng.html</link><description>&gt;[!NOTE] 
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Person Blog</title><link>https://y22879451164.github.io</link><description>一个简单的个人博客</description><copyright>Person Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/117916814?s=400&amp;u=58268283f36239a32aca522406e8a2a2415483a4&amp;v=4</url><title>avatar</title><link>https://y22879451164.github.io</link></image><lastBuildDate>Wed, 28 May 2025 09:22:19 +0000</lastBuildDate><managingEditor>Person Blog</managingEditor><ttl>60</ttl><webMaster>Person Blog</webMaster><item><title>笔记</title><link>https://y22879451164.github.io/post/bi-ji.html</link><description># JAVA基础
+## Java 中 final 作用是什么？
+
+- 修饰类：当final修饰一个类时，表示这个类不能被继承
+- 修饰方法：用final修饰的方法不能在子类中被重写
+- 修饰变量：当final修饰基本数据类型的变量时，该变量一旦被赋值就不能再改变
+
+## CompletableFuture怎么用的？
+示例代码：
+``` java
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        // 线程1
+        CompletableFuture&lt;Integer&gt; futureA =
+                CompletableFuture.supplyAsync(() -&gt; {
+                    System.out.println(Thread.currentThread().getName()+'--begin..');
+                    int res = 100;
+                    System.out.println('一：'+res);
+                    System.out.println(Thread.currentThread().getName()+'--over..');
+                    return res;
+                },executorService);
+
+        // 线程2
+        CompletableFuture&lt;Integer&gt; futureB =
+                CompletableFuture.supplyAsync(() -&gt; {
+                    System.out.println(Thread.currentThread().getName()+'--begin..');
+                    int res = 30;
+                    System.out.println('二：'+res);
+                    System.out.println(Thread.currentThread().getName()+'--over..');
+                    return res;
+                },executorService);
+
+        CompletableFuture&lt;Void&gt; all = CompletableFuture.allOf(futureA,futureB);
+        all.get();
+        System.out.println('over....');
+```
+其中runAsync方法不支持返回值，supplyAsync可以支持返回值。</description><guid isPermaLink="true">https://y22879451164.github.io/post/bi-ji.html</guid><pubDate>Wed, 28 May 2025 09:21:54 +0000</pubDate></item><item><title>Minio与SpringBoot项目集成</title><link>https://y22879451164.github.io/post/Minio-yu-SpringBoot-xiang-mu-ji-cheng.html</link><description>&gt;[!NOTE] 
 &gt;### 1. 添加 MinIO 客户端依赖
 
 在您的 Spring Boot 项目的 pom.xml 文件中添加 MinIO 客户端依赖：
