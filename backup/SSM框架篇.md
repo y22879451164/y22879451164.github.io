@@ -47,14 +47,14 @@ Spring实现事务的本质是利用AOP完成的。它对方法前后进行拦�
 
 ### SpringMVC的执行流程？
 SpringMVC的执行流程包括以下步骤：
-1. 用户发送请求到前端控制器DispatcherServlet。
-2. DispatcherServlet调用HandlerMapping找到具体处理器。
+1. 用户发送请求到前端控制器**DispatcherServlet**。
+2. DispatcherServlet调用**HandlerMapping**找到具体处理器。
 3. HandlerMapping返回处理器对象及拦截器（如果有）给DispatcherServlet。
 4. DispatcherServlet调用HandlerAdapter。
-5. HandlerAdapter适配并调用具体处理器（Controller）。
+5. **HandlerAdapter**适配并调用具体处理器（Controller）。
 6. Controller执行并返回ModelAndView对象。
 7. HandlerAdapter将ModelAndView返回给DispatcherServlet。
-8. DispatcherServlet传给ViewResolver进行视图解析。
+8. DispatcherServlet传给**ViewResolver**进行视图解析。
 9. ViewResolver返回具体视图给DispatcherServlet。
 10. DispatcherServlet渲染视图并响应用户。
 
@@ -82,4 +82,7 @@ SpringMVC的常见注解有：
 ### Springboot常见注解有哪些？
 Spring Boot的常见注解包括：
 - `@SpringBootApplication`：由`@SpringBootConfiguration、@EnableAutoConfiguration`和`@ComponentScan`组成。
+
+
+
 
