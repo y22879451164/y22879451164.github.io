@@ -429,7 +429,40 @@ CAS 和 AQS 两者的区别：</p>
 使用同步锁控制，对同一类型信息的key设置不同的过期时间，比如：使用固定数+随机数作为过期时间。</p>
 <p>3.缓存击穿</p>
 <p>大量并发访问同一个热点数据，当热点数据失效后同时去请求数据库，瞬间耗尽数据库资源，导致数据库无法使用。<br>
-解决办法：使用同步锁控制，设置key永不过期</p></div>
+解决办法：使用同步锁控制，设置key永不过期</p>
+<p>##数据库相关</p>
+<h3>数据库三大范式是什么？</h3>
+<p>第一范式（1NF）：要求数据库表的每一列都是不可分割的原子数据项。<br>
+第二范式（2NF）：在1NF的基础上，非码属性必须完全依赖于候选码（在1NF基础上消除非主属性对主码的部分函数依赖），第二范式需要确保数据库表中的每一列都和主键相关，而不能只与主键的某一部分相关（主要针对联合主键而言）。<br>
+第三范式（3NF）：在2NF基础上，任何非主属性不依赖于其它非主属性（在2NF基础上消除传递依赖），第三范式需要确保数据表中的每一列数据都和主键直接相关，而不能间接相关。</p>
+<h3>varchar后面代表字节还是字符？</h3>
+<p>VARCHAR 后面括号里的数字代表的是字符数，而不是字节数。<br>
+比如 VARCHAR(10)，这里的 10 表示该字段最多可以存储 10 个字符。字符的字节长度取决于所使用的字符集。</p>
+<h3>SQL查询语句的执行顺序是怎么样的？</h3>
+<p>(9) SELECT<br>
+(10) DISTINCT ,<br>
+(6) AGG_FUNC  or , ...<br>
+(1) FROM &lt;left_table&gt;<br>
+(3) &lt;join_type&gt;JOIN&lt;right_table&gt;<br>
+(2) ON&lt;join_condition&gt;<br>
+(4) WHERE &lt;where_condition&gt;<br>
+(5) GROUP BY &lt;group_by_list&gt;<br>
+(7) WITH {CUBE|ROLLUP}<br>
+(8) HAVING &lt;having_condtion&gt;<br>
+(11) ORDER BY &lt;order_by_list&gt;<br>
+(12) LIMIT &lt;limit_number&gt;;</p>
+<h3>讲一讲mysql的引擎吧，你有什么了解？</h3>
+<p>InnoDB：InnoDB是MySQL的默认存储引擎，具有ACID事务支持、行级锁、外键约束等特性。它适用于高并发的读写操作，支持较好的数据完整性和并发控制。<br>
+MyISAM：MyISAM是MySQL的另一种常见的存储引擎，具有较低的存储空间和内存消耗，适用于大量读操作的场景。然而，MyISAM不支持事务、行级锁和外键约束，因此在并发写入和数据完整性方面有一定的限制。<br>
+Memory：Memory引擎将数据存储在内存中，适用于对性能要求较高的读操作，但是在服务器重启或崩溃时数据会丢失。它不支持事务、行级锁和外键约束。</p>
+<h3>MySQL为什么InnoDB是默认引擎？</h3>
+<p>InnoDB引擎在事务支持、并发性能、崩溃恢复等方面具有优势，因此被MySQL选择为默认的存储引擎。</p>
+<ul>
+<li>事务支持：InnoDB引擎提供了对事务的支持，可以进行ACID（原子性、一致性、隔离性、持久性）属性的操作。Myisam存储引擎是不支持事务的。</li>
+<li>并发性能：InnoDB引擎采用了行级锁定的机制，可以提供更好的并发性能，Myisam存储引擎只支持表锁，锁的粒度比较大，一个更新语句会锁住整张表，导致其他查询和更新都会被阻塞，因此并发访问受限。</li>
+<li>崩溃恢复：InnoDB引引擎通过 redolog 日志实现了崩溃恢复，可以在数据库发生异常情况（如断电）时，通过日志文件进行恢复，保证数据的持久性和一致性。Myisam是不支持崩溃恢复的。</li>
+</ul>
+<p>但是InnoDB 不保存表的具体行数，执行 select count(*) from table 时需要全表扫描。而MyISAM 用一个变量保存了整个表的行数，执行上述语句时只需要读出该变量即可，速度很快。</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
