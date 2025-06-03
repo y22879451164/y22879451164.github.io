@@ -17,6 +17,35 @@
 - 修饰方法：用final修饰的方法不能在子类中被重写
 - 修饰变量：当final修饰基本数据类型的变量时，该变量一旦被赋值就不能再改变
 
+### java中基本类型和包装类型
+
+1. 基本类型：byte（1字节），short（2字节），int（4字节），long（8字节），float（4字节），double（8字节），char（2字节），boolean（1字节）
+2. 包装类型: Byte，Short，Integer，Long，Float，Double，Character，Boolean
+
+ 
+### == 和 equals区别？
+
+>[!NOTE]
+== 运算符​
+
+对于基本数据类型（如int，char）比较值是否相等
+对于引用数据类型（如对象），比较的是​​内存地址​​是否相同（即是否指向同一个对象）
+
+>[!NOTE]
+equals() 方法​
+
+默认行为（未重写时）​​：继承自 Object 类，等价于 ==，比较内存地址
+​​重写后​​，比较​​对象内容​​是否相等，String、Integer 等标准库类已重写
+
+>[!NOTE]
+有些包装类具有缓存机制，会导致==运算符返回true
+
+Integer、Long、Short​​缓存范围为-128 ~ 127，在这个范围类通过==比较会返回true，范围外返回false
+```java
+Integer i1 = 127;
+Integer i2 = 127;
+System.out.println(i1 == i2); // true（缓存复用）
+```
 ### CompletableFuture怎么用的？
 示例代码：
 ``` java
@@ -54,6 +83,35 @@
 - 修饰方法：用final修饰的方法不能在子类中被重写
 - 修饰变量：当final修饰基本数据类型的变量时，该变量一旦被赋值就不能再改变
 
+### java中基本类型和包装类型
+
+1. 基本类型：byte（1字节），short（2字节），int（4字节），long（8字节），float（4字节），double（8字节），char（2字节），boolean（1字节）
+2. 包装类型: Byte，Short，Integer，Long，Float，Double，Character，Boolean
+
+ 
+### == 和 equals区别？
+
+>[!NOTE]
+== 运算符​
+
+对于基本数据类型（如int，char）比较值是否相等
+对于引用数据类型（如对象），比较的是​​内存地址​​是否相同（即是否指向同一个对象）
+
+>[!NOTE]
+equals() 方法​
+
+默认行为（未重写时）​​：继承自 Object 类，等价于 ==，比较内存地址
+​​重写后​​，比较​​对象内容​​是否相等，String、Integer 等标准库类已重写
+
+>[!NOTE]
+有些包装类具有缓存机制，会导致==运算符返回true
+
+Integer、Long、Short​​缓存范围为-128 ~ 127，在这个范围类通过==比较会返回true，范围外返回false
+```java
+Integer i1 = 127;
+Integer i2 = 127;
+System.out.println(i1 == i2); // true（缓存复用）
+```
 ### CompletableFuture怎么用的？
 示例代码：
 ``` java
@@ -123,7 +181,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     font-size: 12px;
 }
 </style>
-
+<style>.markdown-alert{padding:0.5rem 1rem;margin-bottom:1rem;border-left:.25em solid var(--borderColor-default,var(--color-border-default));}.markdown-alert .markdown-alert-title {display:flex;font-weight:var(--base-text-weight-medium,500);align-items:center;line-height:1;}.markdown-alert>:first-child {margin-top:0;}.markdown-alert>:last-child {margin-bottom:0;}</style><style>.markdown-alert.markdown-alert-note {border-left-color:var(--borderColor-accent-emphasis, var(--color-accent-emphasis));background-color:var(--color-accent-subtle);}.markdown-alert.markdown-alert-note .markdown-alert-title {color: var(--fgColor-accent,var(--color-accent-fg));}</style>
 
 
 
@@ -160,6 +218,26 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <li>修饰方法：用final修饰的方法不能在子类中被重写</li>
 <li>修饰变量：当final修饰基本数据类型的变量时，该变量一旦被赋值就不能再改变</li>
 </ul>
+<h3>java中基本类型和包装类型</h3>
+<ol>
+<li>基本类型：byte（1字节），short（2字节），int（4字节），long（8字节），float（4字节），double（8字节），char（2字节），boolean（1字节）</li>
+<li>包装类型: Byte，Short，Integer，Long，Float，Double，Character，Boolean</li>
+</ol>
+<h3>== 和 equals区别？</h3>
+<div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p><p>== 运算符​</p>
+</div>
+<p>对于基本数据类型（如int，char）比较值是否相等<br>
+对于引用数据类型（如对象），比较的是​​内存地址​​是否相同（即是否指向同一个对象）</p>
+<div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p><p>equals() 方法​</p>
+</div>
+<p>默认行为（未重写时）​​：继承自 Object 类，等价于 ==，比较内存地址<br>
+​​重写后​​，比较​​对象内容​​是否相等，String、Integer 等标准库类已重写</p>
+<div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p><p>有些包装类具有缓存机制，会导致==运算符返回true</p>
+</div>
+<p>Integer、Long、Short​​缓存范围为-128 ~ 127，在这个范围类通过==比较会返回true，范围外返回false</p>
+<div class="highlight highlight-source-java"><pre class="notranslate"><span class="pl-smi">Integer</span> <span class="pl-s1">i1</span> = <span class="pl-c1">127</span>;
+<span class="pl-smi">Integer</span> <span class="pl-s1">i2</span> = <span class="pl-c1">127</span>;
+<span class="pl-smi">System</span>.<span class="pl-s1">out</span>.<span class="pl-en">println</span>(<span class="pl-s1">i1</span> == <span class="pl-s1">i2</span>); <span class="pl-c">// true（缓存复用）</span></pre></div>
 <h3>CompletableFuture怎么用的？</h3>
 <p>示例代码：</p>
 <div class="highlight highlight-source-java"><pre class="notranslate">        <span class="pl-smi">ExecutorService</span> <span class="pl-s1">executorService</span> = <span class="pl-smi">Executors</span>.<span class="pl-en">newFixedThreadPool</span>(<span class="pl-c1">4</span>);
