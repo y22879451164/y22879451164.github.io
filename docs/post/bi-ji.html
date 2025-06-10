@@ -301,6 +301,40 @@ ArrayList在添加元素时，如果当前元素个数已经达到了内部数�
 <li>再哈希法（Rehashing）：当发生冲突时，使用另一个哈希函数再次计算键的哈希值，直到找到一个空槽来存储键值对。</li>
 <li>哈希桶扩容：当哈希冲突过多时，可以动态地扩大哈希桶的数量，重新分配键值对，以减少冲突的概率。</li>
 </ol>
+<h3>为什么HashMap要用红黑树而不是平衡二叉树？</h3>
+<ol>
+<li>平衡二叉树追求的是一种 “完全平衡” 状态：任何结点的左右子树的高度差不会超过 1，优势是树的结点是很平均分配的，但是这个要求实在是太严了。</li>
+<li>红黑树不追求这种完全平衡状态，而是追求一种 “弱平衡” 状态：整个树最长路径不会超过最短路径的 2 倍。优势是虽然牺牲了一部分查找的性能效率，但是能够换取一部分维持树平衡状态的成本。</li>
+</ol>
+<h3>重写HashMap的equal方法不当会出现什么问题？</h3>
+<ul>
+<li>HashMap在比较元素时，会先通过hashCode进行比较，相同的情况下再通过equals进行比较。</li>
+<li>所以 equals相等的两个对象，hashCode一定相等。hashCode相等的两个对象，equals不一定相等（比如散列冲突的情况）</li>
+<li>重写了equals方法，不重写hashCode方法时，可能会出现equals方法返回为true，而hashCode方法却返回false，这样的一个后果会导致在hashmap等类中存储多个一模一样的对象，导致出现覆盖存储的数据的问题，这与hashmap只能有唯一的key的规范不符合。</li>
+</ul>
+<div class="markdown-alert markdown-alert-note"><p class="markdown-alert-title"><svg class="octicon octicon-info mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p><p>如果o1.equals(o2)，那么<code class="notranslate">o1.hashCode() == o2.hashCode()</code>总是为true的。<br>
+如果<code class="notranslate">o1.hashCode() == o2.hashCode()</code>，并不意味着o1.equals(o2)会为true。</p>
+</div>
+<h3>说说hashmap的负载因子</h3>
+<p>HashMap 负载因子 loadFactor 的默认值是 0.75，当 HashMap 中的元素个数超过了容量的 75% 时，就会进行扩容。<br>
+比如hashmap初始容量是16，插入第13个元素的时候，打到负载因子限制，需要扩容，HashMap 的容量从 16 扩容到 32。</p>
+<h3>JDK 1.7 ConcurrentHashMap中的分段锁怎么加锁的？</h3>
+<p>在 ConcurrentHashMap 中，将整个数据结构分为多个 Segment，每个 Segment 都类似于一个小的 HashMap，每个 Segment 都有自己的锁，不同 Segment 之间的操作互不影响，从而提高并发性能。</p>
+<blockquote>
+<p>[NOTE]<br>
+JDK 1.7 ConcurrentHashMap中的分段锁是用了 ReentrantLock，是一个可重入的锁。</p>
+</blockquote>
+<h3>已经用了synchronized，为什么还要用CAS呢？</h3>
+<ol>
+<li>在putVal中，如果计算出来的hash槽没有存放元素，那么就可以直接使用CAS来进行设置值，这是因为在设置元素的时候，因为hash值经过了各种扰动后，造成hash碰撞的几率较低，那么我们可以预测使用较少的自旋来完成具体的hash落槽操作。</li>
+<li>当发生了hash碰撞的时候说明容量不够用了或者已经有大量线程访问了，因此这时候使用synchronized来处理hash碰撞比CAS效率要高，因为发生了hash碰撞大概率来说是线程竞争比较强烈。</li>
+</ol>
+<h3>有序的Set是什么？记录插入顺序的集合是什么？</h3>
+<ol>
+<li>有序的 Set 是TreeSet和LinkedHashSet。TreeSet是基于红黑树实现，保证元素的自然顺序。LinkedHashSet是基于双重链表和哈希表的结合来实现元素的有序存储，保证元素添加的自然顺序</li>
+<li>记录插入顺序的集合通常指的是LinkedHashSet，它不仅保证元素的唯一性，还可以保持元素的插入顺序。当需要在<br>
+Set集合中记录元素的插入顺序时，可以选择使用LinkedHashSet来实现。</li>
+</ol>
 <h2>并发编程</h2>
 <h3>线程的创建方式有哪些?</h3>
 <p>继承Thread类，实现Runnable接口，实现Callable接口，要执行Callable任务，需将它包装进一个FutureTask，因为Thread类的构造器只接受Runnable参数，而FutureTask实现了Runnable接口。使用线程池（Executor框架）</p>
