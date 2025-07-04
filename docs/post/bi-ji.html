@@ -645,7 +645,7 @@ AQS核心思想是，如果被请求的共享资源空闲，那么就将当前�
 <li>「可重复读」隔离级别是执行第一条select时，生成一个 Read View，然后整个事务期间都在用这个 Read View。</li>
 </ul>
 <p>Read View 有四个重要的字段：</p>
-<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/5bee50c3-d4f0-4c21-991c-540333433d50"><img src="https://github.com/user-attachments/assets/5bee50c3-d4f0-4c21-991c-540333433d50" alt="Image" style="max-width: 100%;"></a></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/5bee50c3-d4f0-4c21-991c-540333433d50"><img src="https://github.com/user-attachments/assets/5bee50c3-d4f0-4c21-991c-540333433d50" alt="Image" style="max-width: 100%; height: auto;"></a></p>
 <ul>
 <li>m_ids ：指的是在创建 Read View 时，当前数据库中「活跃事务」的事务 id 列表，注意是一个列表，“活跃事务”指的就是，启动了但还没提交的事务。</li>
 <li>min_trx_id ：指的是在创建 Read View 时，当前数据库中「活跃事务」中事务 id 最小的事务，也就是 m_ids 的最小值。</li>
